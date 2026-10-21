@@ -1,0 +1,2166 @@
+/* Dodatki wizualne dla wersji koszalińskiej — utrzymane w palecie metzlom.pl
+   (granat #124376, pomarańcz #e55813, tło #fffefa) */
+
+/* --- Globalnie: żadnych podkreśleń linków --- */
+a {
+  text-decoration: none;
+}
+
+/* Siatka bezpieczeństwa — strona nigdy nie powinna przewijać się w poziomie
+   (np. gdyby coś pozycjonowane absolutnie wystawało poza krawędź ekranu) */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Wyłącza automatyczne "font inflation" przeglądarek mobilnych (głównie
+   Firefox) — w wąskich/responsywnych widokach potrafią same powiększać
+   tekst w szerokich, elastycznych kontenerach (np. .nav-dropdown-label,
+   rozciągnięty przez flex:1) inaczej niż w ciasno dopasowanych linkach,
+   mimo identycznego font-size w CSS. */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ============================================================
+   RESPONSYWNE MARGINESY STRONY — bazowy motyw metzlom.pl miał
+   sztywne 6.75rem (108px) marginesy boczne na .container na
+   KAŻDEJ szerokości ekranu (hero, treść, CTA, stopka, FAQ). Na
+   telefonie 375px zostawiało to 159px na całą treść. Skalujemy
+   je w dół razem ze zmniejszaniem się ekranu.
+   ============================================================ */
+.container {
+  margin-left: 6.75rem;
+  margin-right: 6.75rem;
+}
+
+@media (max-width: 991px) {
+  .container {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .container {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+/* ============================================================
+   NAVBAR — przebudowa od zera (flexbox), zamiast łatania
+   dziedziczonego z metzlom.pl układu float + jednostki vw,
+   który powodował: przycięty dropdown, rozjechane wyrównanie
+   linków vs. przycisku "Oferta" i przeskalowane logo (500×500px
+   renderowane na 216px w 128px-owym, "widocznym" kontenerze).
+   ============================================================ */
+
+.navbar {
+  overflow: visible;
+  border-bottom: 1px solid #e55813;
+}
+
+/* Ta sama szerokość co reszta sekcji na stronie (.container: 6.75rem marginesu
+   po każdej stronie) — bazowy motyw zawężał tu prawy margines do 3.75rem,
+   przez co nawigacja nie kończyła się w tym samym miejscu co treść poniżej. */
+.navbar .container.is--mobile.for--nav {
+  margin-left: 6.75rem;
+  margin-right: 6.75rem;
+}
+
+@media (max-width: 991px) {
+  .navbar .container.is--mobile.for--nav {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar .container.is--mobile.for--nav {
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+  }
+}
+
+.nav--mobile--div {
+  height: auto;
+}
+
+.navmenu--maindiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-height: none;
+  height: 132px;
+  margin: 0;
+}
+
+/* --- Logo --- */
+.div-block-25 {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.img-crop {
+  max-height: none;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
+
+.navbar .image {
+  height: 124px;
+  width: 124px;
+  object-fit: contain;
+  margin-right: 0;
+}
+
+/* --- Menu --- */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  float: none;
+  height: 100%;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #0a1a45;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  cursor: pointer;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  font-size: 1.15rem;
+  line-height: 1;
+  font-weight: 500;
+  transition: color .2s;
+}
+
+.nav-link.w--current {
+  font-size: 1.15rem;
+}
+
+.nav-link:hover,
+.nav-link.w--current:hover {
+  color: #e55813;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.nav-link.prawy {
+  padding-right: 0;
+}
+
+/* --- Dropdown "OFERTA": etykieta + osobny przycisk-strzałka --- */
+.nav-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  position: relative;
+}
+
+.nav-dropdown-label {
+  display: flex;
+  align-items: center;
+  color: #0a1a45;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-family: Roboto, sans-serif;
+  font-size: 1.15rem;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.nav-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #0a1a45;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  line-height: 1;
+  transition: color .2s;
+}
+
+.nav-dropdown-toggle::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform .2s;
+  margin-top: -4px;
+}
+
+.nav-dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(225deg);
+  margin-top: 4px;
+}
+
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle[aria-expanded="true"] {
+  color: #e55813;
+}
+
+.nav-dropdown-list {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  background-color: #fffefa;
+  border-top: 3px solid #e55813;
+  min-width: 280px;
+  padding: 10px 0;
+  box-shadow: 0 16px 40px rgba(10, 26, 69, .16);
+}
+
+.nav-dropdown-list[hidden] {
+  display: none;
+}
+
+.nav-dropdown-list .nav-dropdown-link {
+  color: #0a1a45;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-family: Roboto, sans-serif;
+  font-size: .85rem;
+  font-weight: 500;
+  padding: 12px 22px;
+  display: block;
+  text-decoration: none;
+  transition: background-color .2s, color .2s;
+}
+
+.nav-dropdown-list .nav-dropdown-link:hover {
+  background-color: #f6f6f6;
+  color: #e55813;
+}
+
+/* --- Przycisk hamburgera (mobile) --- */
+.menu-button {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .navmenu--maindiv {
+    height: 160px;
+  }
+
+  .div-block-25 {
+    margin-left: 1.5rem;
+  }
+
+  .navbar .image {
+    height: 132px;
+    width: 132px;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: #0a1a45;
+  }
+
+  .menu-button.w--open {
+    background-color: #fffefa;
+    color: #e55813;
+  }
+
+  .w-icon-nav-menu {
+    font-size: 28px;
+  }
+
+  /* Webflow dopisuje atrybut data-nav-menu-open do .nav-menu po kliknięciu
+     hamburgera — to jest właściwy wygląd rozwiniętego menu mobilnego
+     (bazowy motyw dawał tylko szary, nieostylowany pasek bez odstępów). */
+  .nav-menu[data-nav-menu-open] {
+    /* .navmenu--maindiv (rodzic nav-menu) to display:flex, czyli własny
+       kontekst formatowania — taki kontekst OMIJA sąsiedni float (.menu-button
+       ma float:right z bazowego Webflow), więc nie zajmuje pełnej szerokości
+       paska. Normalny układ (position:static) odziedziczyłby tę zawężoną
+       szerokość. Dlatego panel musi zostać position:fixed, zakotwiczony do
+       viewportu wprost — to jedyny sposób, żeby naprawdę sięgał od true
+       lewej do true prawej krawędzi ekranu, niezależnie od float/flex
+       przodków. */
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 160px !important;
+    bottom: auto !important;
+    z-index: 999999 !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    background-color: #fffefa;
+    /* bez własnego border-top: navbar ma już border-bottom w tym samym
+       miejscu — dwie linie tuż obok siebie wyglądały jak podwójna kreska */
+    border-top: none;
+    padding: .25rem 0 1.5rem;
+    /* bazowy motyw ustawia na tym elemencie text-align:center — dziedziczy
+       to .nav-dropdown-label (span rozciągnięty na flex:1), więc "oferta"
+       wygląda na wyśrodkowane, mimo że reszta linków jest do lewej */
+    text-align: left;
+    box-shadow: 0 16px 24px rgba(10, 26, 69, .08);
+  }
+
+  /* Bazowy motyw dokłada własne reguły .nav-link.current i .nav-link.w--current
+     (w swoich media queries 767/991/479px), które mają wyższą specyficzność
+     (dwie klasy) niż nasze podstawowe .nav-link — przez co np. "home" i
+     "kontakt" (klasa current) kurczyły się do .9rem, a "oferta" (bez tej
+     klasy) zostawała przy większym rozmiarze. Tu selektor ma jeszcze wyższą
+     specyficzność ([data-nav-menu-open] + .nav-link), więc wygrywa zawsze
+     i wymusza identyczny rozmiar na wszystkich pozycjach menu mobilnego. */
+  .nav-menu[data-nav-menu-open] .nav-link,
+  .nav-menu[data-nav-menu-open] .nav-dropdown {
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    padding: 16px 1.25rem;
+    border-bottom: 1px solid #f0ede4;
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  /* Wiersz "oferta" ma wyglądać dokładnie jak pozostałe linki (home, faq,
+     kontakt) — etykieta i strzałka siedzą w jednym wierszu tej samej
+     wysokości/wyrównania, a rozwinięta lista zawija się jako kolejny
+     pełnoszerokościowy wiersz pod spodem (flex-wrap zamiast column). */
+  .nav-menu[data-nav-menu-open] .nav-dropdown {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+  }
+
+  .nav-menu[data-nav-menu-open] .nav-dropdown-label {
+    flex: 1 1 auto;
+    padding: 16px 1.25rem;
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .nav-menu[data-nav-menu-open] .nav-dropdown-toggle {
+    width: auto;
+    height: auto;
+    padding: 16px 1.25rem;
+  }
+
+  /* Na mobile podmenu "Oferta" rozwija się w miejscu, pod etykietą —
+     bez pływającego, wyśrodkowanego panelu z wersji desktopowej */
+  .nav-menu[data-nav-menu-open] .nav-dropdown-list {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0;
+    box-shadow: none;
+    border-top: none;
+    background-color: #faf9f5;
+    padding: 0 0 .5rem;
+  }
+
+  .nav-menu[data-nav-menu-open] .nav-dropdown-list .nav-dropdown-link {
+    padding: 12px 1.25rem 12px 2.5rem;
+  }
+}
+
+/* --- Sekcja treści długoformatowej (SEO) --- */
+.content-section {
+  background-color: #fffefa;
+  padding: 4rem 0;
+}
+
+/* Bez własnego max-width: content-wrap ma wypełniać dokładnie tę samą
+   szerokość co .container wszędzie indziej na stronie (hero, FAQ, stopka,
+   CTA) — to one i to samo, spójne pole treści na całej stronie. */
+
+.content-section h2.h2 {
+  margin-top: 2.5rem;
+}
+
+.content-section h2.h2:first-child {
+  margin-top: 0;
+}
+
+.content-section .paragraph a,
+.content-section .p1 a {
+  color: #e55813;
+  text-decoration: none;
+}
+
+.content-section .paragraph a:hover,
+.content-section .p1 a:hover {
+  color: #124376;
+}
+
+.content-section ul.list {
+  margin: 1rem 0 1.5rem 0;
+  padding-left: 1.4rem;
+}
+
+.content-section ul.list li {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 2.5vh;
+  font-weight: 300;
+  line-height: 28px;
+  letter-spacing: .07vw;
+  list-style: disc;
+  margin-bottom: .5rem;
+}
+
+.content-section ol.list {
+  margin: 1rem 0 1.5rem 0;
+  padding-left: 1.4rem;
+}
+
+.content-section ol.list li {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 2.5vh;
+  font-weight: 300;
+  line-height: 28px;
+  letter-spacing: .07vw;
+  list-style: decimal;
+  margin-bottom: .5rem;
+}
+
+.content-image {
+  float: right;
+  max-width: 320px;
+  width: 40%;
+  height: auto;
+  margin: 0 0 1.5rem 2rem;
+  border-radius: 6px;
+}
+
+@media (max-width: 767px) {
+  .content-image {
+    float: none;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 1.5rem 0;
+  }
+}
+
+/* Bazowy motyw nie dawał sekcji FAQ żadnego paddingu — ostatnia pozycja
+   akordeonu (bez własnego margin-bottom) sąsiadowała bezpośrednio z
+   kolejną sekcją. Padding 4rem to ten sam standard co .content-section
+   i .process-section w całym serwisie. */
+.section-4 {
+  padding: 4rem 0;
+}
+
+@media (max-width: 479px) {
+  .section-4 {
+    margin-bottom: 0;
+  }
+}
+
+/* --- FAQ (accordion) --- */
+.faq-container details {
+  display: grid;
+  grid-template-rows: auto 0fr;
+  margin: 0 0 1rem;
+  border: 1px solid #e9e9e6;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: grid-template-rows .3s ease, border-color .2s ease;
+}
+
+.faq-container details:last-of-type {
+  margin: 0;
+}
+
+.faq-container details[open] {
+  grid-template-rows: auto 1fr;
+  border-color: #e55813;
+}
+
+.faq-container summary {
+  background-color: #f6f6f6;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  transition: background-color .2s ease;
+}
+
+.faq-container summary:hover {
+  background-color: #efece2;
+}
+
+.faq-container summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-container summary h3 {
+  color: #124376;
+  margin: 0 !important;
+  font-family: Roboto, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.faq-container summary::after {
+  content: "+";
+  color: #e55813;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform .3s ease;
+}
+
+.faq-container details[open] summary::after {
+  content: "+";
+  transform: rotate(135deg);
+}
+
+.faq-container details > .faq-answer {
+  display: block;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.faq-container details .faq-answer {
+  padding: 0 1.5rem;
+}
+
+.faq-container details[open] .faq-answer {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.faq-container details .faq-answer p {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 26px;
+  margin: 0 0 20px;
+}
+
+/* --- Tabele w treści (np. zakres usług) --- */
+.content-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.content-section table td,
+.content-section table th {
+  border: 1px solid #e0ddd3;
+  padding: 12px 16px;
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: left;
+}
+
+.content-section table tr:first-child td {
+  background-color: #124376;
+  color: #fffefa;
+  font-weight: 600;
+}
+
+/* --- Formularz kontaktowy --- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 767px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-card {
+  background-color: #f6f6f6;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-card p.h4 {
+  margin-bottom: .75rem;
+}
+
+/* content-prose nie zawęża już treści — ma być dokładnie tej samej
+   szerokości co content-wrap/media-band/city-grid, żeby nic na stronie
+   nie "skakało" między szeroko a wąsko */
+
+/* --- Duże zdjęcie/wideo tematyczne + tekst obok (naprzemiennie) --- */
+.media-band {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin: 4rem 0;
+}
+
+.media-band.is--reverse {
+  flex-direction: row-reverse;
+}
+
+.media-band-media {
+  flex: 1 1 50%;
+  min-width: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 12px 32px rgba(18, 67, 118, .15);
+}
+
+.media-band-media img,
+.media-band-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-band-text {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+.media-band-text h2,
+.media-band-text h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .media-band,
+  .media-band.is--reverse {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .media-band-media {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* --- Pełnoszerokościowy baner zdjęcie/wideo (bez tekstu obok) --- */
+.media-banner {
+  margin: 4rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 21 / 9;
+  box-shadow: 0 12px 32px rgba(18, 67, 118, .15);
+}
+
+.media-banner img,
+.media-banner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .media-banner {
+    aspect-ratio: 4 / 3;
+    margin: 2.5rem 0;
+  }
+}
+
+/* --- Wideo w tle hero (desktop) z fallbackiem na statyczny poster (mobile) --- */
+.heroimagediv video.image-43 {
+  object-fit: cover;
+}
+
+.hero-video-poster {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .heroimagediv video.image-43 {
+    display: none;
+  }
+
+  .hero-video-poster {
+    display: block;
+  }
+}
+
+/* --- Siatka miejscowości (np. zasięg odbioru złomu) --- */
+.city-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2.5rem;
+  margin: 1.5rem 0 3rem;
+}
+
+.city-card {
+  background-color: #f6f6f6;
+  border-left: 3px solid #e55813;
+  padding: 1.5rem 1.75rem;
+}
+
+.city-card h3 {
+  margin-bottom: .5rem;
+  font-size: 1.25rem;
+}
+
+.city-card p {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .city-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Pasek kontaktowy nad stopką (telefon/mail oddziału) --- */
+.branch-contact-bar {
+  background-color: #fffefa;
+  border-top: 1px solid #e55813;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.branch-contact-bar a {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 .75rem;
+}
+
+.branch-contact-bar a:hover {
+  color: #e55813;
+}
+
+/* --- Link do strony głównej grupy (stopka) --- */
+.footer-site-link {
+  color: #124376;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+/* Link do polityki prywatności w wierszu z copyrightem, po lewej stronie —
+   lustrzane odbicie .copyrights--getvisive (position:absolute, wyśrodkowane
+   w pionie), żeby "Polityka prywatności", "©METZŁOM Sp. z o.o." i logo
+   GetVisive stały w jednej linii na desktopie. */
+.footer-privacy-link {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-privacy-link:hover {
+  color: #e55813;
+}
+
+@media (max-width: 767px) {
+  /* Tyle samo miejsca brakuje tu, co dla logo GetVisive (patrz
+     .copyrights--getvisive niżej) — na mobile link wraca do zwykłego
+     przepływu, wyśrodkowany pod copyrightem. */
+  .footer-privacy-link {
+    position: static;
+    transform: none;
+    display: block;
+    margin-top: .4rem;
+  }
+}
+
+.footer-site-link:hover {
+  color: #e55813;
+}
+
+/* --- Stopka: 3 równe kolumny (Logo/claim, Koszalin, Słupsk) --- */
+.footer--maindiv {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  align-items: start;
+  padding-top: 4rem;
+}
+
+/* Odstęp logo↔Koszalin i Koszalin↔Słupsk to ten sam `gap` w grid, więc
+   nie da się ich różnicować samym gapem — dokładka tylko na pierwszej
+   kolumnie (Koszalin) odsuwa ją dalej od logo, a Koszalin↔Słupsk
+   zostaje przy bazowym, mniejszym odstępie 3rem. Tylko na desktopie —
+   na mobile kolumny stoją jedna pod drugą i mają być wyśrodkowane. */
+@media (min-width: 768px) {
+  .footer-locations .footer-block.is--left:first-of-type {
+    margin-left: 2rem;
+  }
+}
+
+.footer_logoblock {
+  margin-left: 0;
+  text-align: center;
+}
+
+/* Bazowy motyw ustawia margin-left:auto + margin-right:2.5rem, co wypycha
+   logo w prawo zamiast je centrować nad wyśrodkowanym hasłem pod spodem */
+.footer_logoblock .image {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* .footer-locations przestaje być samodzielnym elementem układu — jego dzieci
+   (bloki Koszalin i Słupsk) stają się bezpośrednimi kolumnami grida stopki */
+.footer-locations {
+  display: contents;
+}
+
+.footer-block.is--left {
+  margin-top: 0;
+  margin-left: 0;
+}
+
+/* Adres i link do metzlom.pl mają klasę .p1, która poza stopką skaluje się
+   przez 2.5vh — na wysokich desktopowych ekranach wychodziło to wyraźnie
+   większe niż sąsiednie wiersze telefon/e-mail (.h3.is--light, 1rem).
+   Wyrównujemy do tego samego rozmiaru, żeby cała kolumna była spójna. */
+.footer-block.is--left .p1 {
+  font-size: 1rem;
+}
+
+/* Druga połowa tego samego problemu, odwrotna strona: bazowy motyw ma
+   WŁASNE reguły .h3.is--light{font-size:...} wewnątrz swoich media query
+   (.7rem ≤991px, .9rem ≤479px) — czyli dokładnie tam, gdzie żyje telefon.
+   Te reguły mają 2 klasy (specyficzność 0,2,0), więc nic w tym pliku o
+   niższej specyficzności ich nie przebije niezależnie od kolejności. Efekt:
+   na typowym telefonie wiersze telefon/e-mail kurczyły się do .9rem, a
+   adres (przypięty wyżej na sztywne 1rem) zostawał wyraźnie większy.
+   Przypinamy .h3.is--light do tego samego 1rem, z tą samą (lub wyższą)
+   specyficznością, żeby obie linie w kolumnie stopki zawsze się zgadzały. */
+.footer-block.is--left .h3.is--light {
+  font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+  .footer--maindiv {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 3rem;
+  }
+
+  /* Nagłówek (Koszalin/Słupsk), każdy wiersz ikona+numer/e-mail jako
+     całość, adres i link do metzlom.pl — wszystko wyśrodkowane względem
+     tej samej osi. Oba bloki (Koszalin i Słupsk) mają identyczną,
+     pełną szerokość kolumny, więc ich środki się pokrywają. */
+  .footer-block.is--left {
+    text-align: center;
+  }
+
+  .footer-block.is--left .div-block-22 {
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   HERO I CTA NA MOBILE — bazowy motyw metzlom.pl nigdy nie
+   przełącza .hero----maindiv z flex row na column (na każdym
+   breakpoincie łącznie z 479px zostaje obok siebie: kolumna
+   tekstu + .heroimagediv o szerokości 467–480vh!). Na telefonie
+   to realnie rozwala layout. Wymuszamy układ kolumnowy i sensowne
+   szerokości. To samo dla CTA: pełnoekranowe tło (100vh) z
+   marginesem 140px z lewej nigdy nie jest korygowane na mobile.
+   ============================================================ */
+@media (max-width: 767px) {
+  .hero----maindiv {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    gap: 2rem;
+    padding: 2.5rem 0;
+  }
+
+  .hero-heading-div {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .heroimagediv {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .heroimagediv video.image-43,
+  .heroimagediv img.image-43,
+  .hero-video-poster {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+  .div-block-18 {
+    min-height: 0;
+    padding: 3rem 0;
+  }
+
+  .ctawindow {
+    width: 100%;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ctawindow .h2.is--left {
+    text-align: center;
+  }
+
+  /* Modyfikator .is--image-first-mobile (np. "Skup złomu stalowego") —
+     na mobile zdjęcie ma być pierwsze, tuż pod navbarem (bez górnego
+     paddingu sekcji) i na pełną szerokość ekranu (negatywny margines
+     znosi marginesy .container, tak jak w kaflach złomu). Reszta stron
+     z tym samym komponentem hero zostaje bez zmian — to modyfikator,
+     nie zmiana bazowej .heroimagediv/.hero----maindiv. */
+  .hero----maindiv.is--image-first-mobile {
+    padding-top: 0;
+  }
+
+  .heroimagediv.is--image-first-mobile {
+    order: -1;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .heroimagediv.is--image-first-mobile {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+
+/* Bazowy motyw dawał tu min-height:100vh na pełnoekranowym tle — to
+   właśnie ta "pusta" sekcja na końcu każdej strony. Dopasowujemy do
+   treści, a okno CTA wyśrodkowujemy zamiast trzymać przy lewej
+   krawędzi z marginesem 8.75rem (który nie pasował do reszty strony). */
+.div-block-18 {
+  min-height: 0;
+  padding: 6rem 0;
+  /* Granatowa nakładka (scrim) na zdjęciu tła — bez niej granatowy
+     tekst (.h2/.p1 = #124376) ginie na jasnych partiach zdjęcia złomu
+     i staje się nieczytelny. Nakładka gwarantuje kontrast niezależnie
+     od tego, co akurat jest pod spodem na zdjęciu. */
+  background-image: linear-gradient(rgba(10, 26, 69, .78), rgba(10, 26, 69, .78)), url('../images/gora-zlomu-gotowego-do-recyklingu.png');
+  background-position: center;
+  background-size: cover;
+}
+
+.ctawindow {
+  width: 100%;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.ctawindow .h2.is--left,
+.ctawindow .p1.p1-cta {
+  text-align: center;
+  color: #fffefa;
+}
+
+.ctawindow .div-block-20 {
+  display: flex;
+  justify-content: center;
+  /* Wyraźny odstęp między buttonem a brzegiem zdjęcia/sekcji. */
+  margin-top: 1.5rem;
+}
+
+/* ============================================================
+   BANER ZGODY NA COOKIES (RODO) — GTM/GA ładują się z domyślnie
+   odmówioną zgodą (Google Consent Mode v2); dopiero kliknięcie
+   "Akceptuję" włącza faktyczne zapisywanie danych. Patrz
+   js/consent-banner.js.
+   ============================================================ */
+.consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  background-color: #124376;
+  padding: 1.25rem 2rem;
+  box-shadow: 0 -8px 24px rgba(10, 26, 69, .18);
+}
+
+/* .consent-banner{display:flex} ma tę samą specyficzność co domyślne
+   [hidden]{display:none} przeglądarki, więc bez tego selektor wygrywał
+   i baner zostawał widoczny nawet po ustawieniu atrybutu hidden przez JS
+   po kliknięciu przycisku. */
+.consent-banner[hidden] {
+  display: none;
+}
+
+.consent-banner-text {
+  color: #fffefa;
+  font-family: Roboto, sans-serif;
+  font-size: .95rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 760px;
+}
+
+.consent-banner-text a {
+  color: #fffefa;
+  text-decoration: underline;
+}
+
+.consent-banner-text a:hover {
+  color: #e55813;
+}
+
+.consent-banner-actions {
+  display: flex;
+  gap: .75rem;
+  flex-shrink: 0;
+}
+
+.consent-btn {
+  border: 1px solid #fffefa;
+  border-radius: 6px;
+  background: none;
+  color: #fffefa;
+  font-family: Roboto, sans-serif;
+  font-size: .9rem;
+  font-weight: 500;
+  padding: .6rem 1.25rem;
+  cursor: pointer;
+  transition: background-color .2s, color .2s;
+}
+
+.consent-btn-accept {
+  background-color: #e55813;
+  border-color: #e55813;
+}
+
+.consent-btn-accept:hover {
+  background-color: #c9480a;
+  border-color: #c9480a;
+}
+
+.consent-btn-decline:hover {
+  background-color: #fffefa;
+  color: #124376;
+}
+
+@media (max-width: 600px) {
+  .consent-banner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.25rem;
+  }
+
+  .consent-banner-actions {
+    justify-content: stretch;
+  }
+
+  .consent-btn {
+    flex: 1 1 0;
+  }
+}
+
+/* ============================================================
+   DOSTĘPNOŚĆ — widoczny stan focus dla nawigacji klawiaturą.
+   Bazowy motyw nie definiował go prawie wcale.
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+.nav-link:focus-visible,
+.nav-dropdown-toggle:focus-visible,
+.nav-dropdown-label:focus-visible,
+.button:focus-visible,
+.consent-btn:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #e55813;
+  outline-offset: 2px;
+}
+
+.nav-dropdown-list .nav-dropdown-link:focus-visible {
+  outline-offset: -3px;
+  background-color: #f6f6f6;
+}
+
+/* ============================================================
+   WIDEO HERO NA PEŁNY EKRAN (strona główna) — pierwsza rzecz jaką
+   widać po wejściu na stronę: wideo na całą szerokość i wysokość
+   ekranu, bez tekstu. H1 i reszta strony (sekcja .section-2
+   poniżej) pojawiają się dopiero po przewinięciu.
+   ============================================================ */
+/* Szerokość jest tu jedynym twardym ograniczeniem: sekcja zawsze ma
+   100% szerokości ekranu, a wysokość wynika WYŁĄCZNIE z proporcji
+   pliku (1280×720 = 16:9) — bez żadnego max-height. Realne okno
+   przeglądarki (po odjęciu paska zakładek/adresu od wysokości
+   monitora) prawie zawsze ma proporcje szersze niż 16:9, więc
+   jakikolwiek limit wysokości (np. 100vh) i tak by się uruchamiał przy
+   każdym typowym oknie i degradował object-fit:contain z powrotem do
+   pasów po bokach — dokładnie tego mieliśmy uniknąć. Efekt uboczny:
+   na bardzo szerokich/niskich oknach sekcja bywa niższa niż cały
+   ekran (widać kawałek treści pod spodem bez przewijania) — to
+   świadomy kompromis na rzecz pełnej szerokości i braku kadrowania. */
+.video-hero-fullscreen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1280 / 720;
+  overflow: hidden;
+  background-color: #0a1a45;
+}
+
+.video-hero-fullscreen-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* contain działa tu tylko jako zabezpieczenie na skrajnie
+     nietypowych (bardzo szerokich/niskich) oknach, gdzie max-height
+     przycina sekcję poniżej naturalnych proporcji wideo — w typowych
+     przypadkach szerokość i wysokość sekcji już odpowiadają
+     proporcjom pliku, więc object-fit praktycznie się nie uruchamia. */
+  object-fit: contain;
+}
+
+.video-hero-fullscreen-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  color: #fffefa;
+  animation: videoHeroScrollHint 2s ease-in-out infinite;
+}
+
+.video-hero-fullscreen-scroll-text {
+  font-family: Roboto, sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .45);
+}
+
+.video-hero-fullscreen-scroll-arrow {
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid #fffefa;
+  border-bottom: 2px solid #fffefa;
+  transform: rotate(45deg);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .45));
+}
+
+@keyframes videoHeroScrollHint {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: .6;
+  }
+}
+
+/* Podpowiedź "przewiń" miała sens przy wideo na całą wysokość ekranu —
+   na mobile sekcja kończy się razem z kadrem wideo (nie zajmuje całego
+   ekranu), więc podpowiedź przewijania jest tu zbędna. Reguła musi
+   stać PO bazowej .video-hero-fullscreen-scroll (display:flex) —
+   przy takiej samej specyficzności o wygranej decyduje kolejność w
+   pliku, a nie sama obecność media query. */
+@media (max-width: 767px) {
+  .video-hero-fullscreen-scroll {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-hero-fullscreen-scroll {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   SEKCJA WPROWADZAJĄCA POD WIDEO (tylko strona główna) — bespoke
+   komponent, nie korzysta już z dziedziczonych klas Webflow
+   (.hero----maindiv itp.), żeby uniknąć walki z ich starym,
+   niewyraźnym CSS. Desktop: nagłówek po lewej, opis+CTA po prawej.
+   ============================================================ */
+.hero-intro {
+  background-color: #fffefa;
+  padding: 3.5rem 0;
+}
+
+.hero-intro-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.hero-intro-heading {
+  color: #124376;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-family: "Noto Sans Thai Looped", sans-serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.hero-intro-side {
+  padding-top: .5rem;
+}
+
+/* .hero-intro-heading użyty poza siatką hero-intro-grid, w zwykłym
+   pionowym stosie .content-prose (np. "Skup złomu") — .paragraph ma
+   margin-bottom:-1px (pomyślany pod kolejny akapit/nagłówek), więc
+   przycisk zaraz po nim "sklejał się" bez odstępu. Doklejamy odstęp
+   nad przyciskiem i pod samym nagłówkiem, spójny z resztą treści. */
+.content-prose > .hero-intro-heading {
+  margin-bottom: .5rem;
+}
+
+.content-prose > .paragraph + .button {
+  margin-top: 1.5rem;
+}
+
+.hero-intro-text {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  max-width: 46ch;
+}
+
+.hero-intro-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid #ece8dd;
+  list-style: none;
+}
+
+.hero-intro-trust li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+.hero-intro-trust li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .45em;
+  width: 6px;
+  height: 6px;
+  background-color: #e55813;
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .hero-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-intro {
+    padding: 2.5rem 0;
+  }
+}
+
+/* --- Wspólny nagłówek sekcji --- */
+.section-heading {
+  color: #124376;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-family: "Noto Sans Thai Looped", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  margin: 0 0 2.5rem;
+}
+
+.section-heading.is--on-navy {
+  color: #fffefa;
+}
+
+/* ============================================================
+   KAFLE RODZAJÓW ZŁOMU
+   ============================================================ */
+.scrap-tiles-section {
+  background-color: #fffefa;
+  padding: 4rem 0;
+}
+
+.scrap-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
+}
+
+.scrap-tile {
+  display: block;
+  background-color: #fffefa;
+  border: 1px solid #ece8dd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.scrap-tile:hover,
+.scrap-tile:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(18, 67, 118, .14);
+  border-color: #e55813;
+}
+
+.scrap-tile-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.scrap-tile-media.is--top img {
+  /* Domyślny center-crop ucinał górną część zdjęcia (akumulator na wierzchu
+     sterty) — przesuwamy punkt kadrowania w górę, żeby był w pełni widoczny. */
+  object-position: center 20%;
+}
+
+.scrap-tile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.scrap-tile:hover .scrap-tile-media img {
+  transform: scale(1.06);
+}
+
+.scrap-tile-title {
+  color: #124376;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-family: Roboto, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.1rem 1.1rem .4rem;
+}
+
+.scrap-tile-text {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: .9rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0 1.1rem 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .scrap-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .scrap-tiles {
+    grid-template-columns: 80%;
+    grid-auto-columns: 80%;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: .75rem;
+    margin: 0 -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .scrap-tile {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================================
+   DWIE ŚCIEŻKI: PRZYWIEŹ / ZAMÓW ODBIÓR
+   ============================================================ */
+.two-path-section {
+  background-color: #f6f4ec;
+  padding: 4rem 0;
+}
+
+.two-path-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.two-path-card {
+  background-color: #fffefa;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(18, 67, 118, .08);
+  display: flex;
+  flex-direction: column;
+}
+
+.two-path-media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.two-path-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Zdjęcie załadunku (chwytak + samochód) używane w dwóch miejscach —
+   przesuwamy kadr w górę, żeby było więcej nieba i w pełni widoczny
+   chwytak, kosztem dolnej części samochodu. */
+.is--crop-high {
+  object-position: center 15%;
+}
+
+/* To samo zdjęcie (chwytak + samochód), ale tam gdzie liczy się
+   pokazanie SAMOCHODU — razem z dachem szoferki (np. "Odbiór złomu") —
+   przesuwamy kadr w dół, kosztem chwytaka/nieba u góry kadru. */
+.is--crop-low {
+  object-position: center 68%;
+}
+
+.two-path-card h3 {
+  color: #124376;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-family: Roboto, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 1.5rem 1.5rem 0;
+}
+
+.two-path-card p {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.55;
+  margin: .75rem 1.5rem 0;
+}
+
+.two-path-facts {
+  list-style: none;
+  margin: 1rem 1.5rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.two-path-facts li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+.two-path-facts li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 6px;
+  height: 6px;
+  background-color: #e55813;
+  border-radius: 50%;
+}
+
+.two-path-card > .button-outline,
+.two-path-card > .button {
+  margin: 1.5rem;
+  align-self: flex-start;
+}
+
+.two-path-card.is--accent {
+  border: 2px solid #e55813;
+}
+
+.button-outline {
+  display: inline-block;
+  text-align: center;
+  letter-spacing: 1px;
+  background-color: transparent;
+  color: #124376;
+  border: 1px solid #124376;
+  border-radius: 9px;
+  padding: .9rem 1.6rem;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: all .25s;
+}
+
+.button-outline:hover,
+.button-outline:focus-visible {
+  background-color: #124376;
+  color: #fffefa;
+}
+
+@media (max-width: 900px) {
+  .two-path-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   PROCES W KROKACH
+   ============================================================ */
+.process-section {
+  background-color: #124376;
+  padding: 4.5rem 0;
+}
+
+/* repeat(5,1fr) rozciągał się na całą szerokość niezależnie od liczby
+   kroków — przy 3 lub 4 krokach (np. "Skup złomu stalowego") puste
+   kolumny wypychały cały rząd w lewo zamiast go wyśrodkować. auto-fit
+   z ograniczoną szerokością kolumny + justify-content:center daje
+   wyśrodkowany rząd niezależnie od tego, ile kroków ma dana podstrona. */
+.process-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 220px));
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.process-step {
+  position: relative;
+  padding-top: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.process-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin: 0 0 1rem;
+  border-radius: 50%;
+  background-color: #e55813;
+  color: #fffefa;
+  font-family: Roboto, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.process-step h3 {
+  color: #fffefa;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-family: Roboto, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 .5rem;
+}
+
+.process-step p {
+  color: #dfe6ee;
+  font-family: Roboto, sans-serif;
+  font-size: .9rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* ============================================================
+   USŁUGI DLA FIRM — KARTY O RÓŻNYCH ROZMIARACH
+   ============================================================ */
+.services-grid-section {
+  background-color: #fffefa;
+  padding: 4.5rem 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fffefa;
+  border: 1px solid #ece8dd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+
+.service-card:hover {
+  box-shadow: 0 16px 32px rgba(18, 67, 118, .12);
+  transform: translateY(-3px);
+}
+
+.service-card img {
+  width: 100%;
+  /* 4/3 zamiast 16/10 — mniej agresywny kadr (np. zdjęcie chwytaka przy
+     rozbiórce potrzebowało więcej "oddechu"), spójny z proporcją już
+     używaną w kaflach i galerii. */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.service-card-body {
+  padding: 1.5rem;
+}
+
+.service-card-body h3 {
+  color: #124376;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-family: Roboto, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 .6rem;
+}
+
+.service-card-body p {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: .92rem;
+  font-weight: 300;
+  line-height: 1.55;
+  margin: 0 0 .9rem;
+}
+
+.service-card-body a {
+  color: #e55813;
+  font-family: Roboto, sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.service-card-body a:hover {
+  color: #124376;
+}
+
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   GALERIA — ręczny slider (bez bibliotek)
+   ============================================================ */
+.gallery-section {
+  background-color: #124376;
+  padding: 4.5rem 0 4rem;
+}
+
+.gallery-section .section-heading {
+  color: #fffefa;
+  margin-bottom: 3.5rem;
+}
+
+.gallery-slider {
+  position: relative;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: none;
+}
+
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-slide {
+  position: relative;
+  flex: 0 0 460px;
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: .9rem 1rem .8rem;
+  background: linear-gradient(to top, rgba(10, 26, 69, .85), transparent);
+  color: #fffefa;
+  font-family: Roboto, sans-serif;
+  font-size: .82rem;
+  font-weight: 500;
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  background-color: #fffefa;
+  color: #124376;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  transition: background-color .2s, color .2s;
+}
+
+.gallery-nav:hover,
+.gallery-nav:focus-visible {
+  background-color: #e55813;
+  color: #fffefa;
+}
+
+.gallery-nav-prev {
+  left: .5rem;
+}
+
+.gallery-nav-next {
+  right: .5rem;
+}
+
+@media (max-width: 767px) {
+  .gallery-slider {
+    padding: 0 1rem;
+  }
+
+  .gallery-slide {
+    flex-basis: 78vw;
+  }
+
+  .gallery-nav {
+    display: none;
+  }
+}
+
+/* ============================================================
+   OBSZAR DZIAŁANIA + KONTAKT
+   ============================================================ */
+.area-contact-section {
+  background-color: #fffefa;
+  padding: 4.5rem 0;
+}
+
+.area-contact-intro {
+  text-align: center;
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  max-width: 640px;
+  margin: -1.5rem auto 1.5rem;
+}
+
+.area-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+  list-style: none;
+  margin: 0 0 3rem;
+  padding: 0;
+}
+
+.area-chips li {
+  background-color: #f6f4ec;
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: .85rem;
+  font-weight: 500;
+  padding: .5rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #ece8dd;
+}
+
+.contact-info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.contact-info-card {
+  background-color: #f6f4ec;
+  border-radius: 10px;
+  padding: 1.75rem;
+  text-align: center;
+}
+
+.contact-info-card h3 {
+  color: #124376;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 .75rem;
+}
+
+.contact-info-card p {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: .95rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0 0 1.1rem;
+}
+
+.contact-info-card p a {
+  color: #124376;
+  font-weight: 500;
+}
+
+.contact-info-card p a:hover {
+  color: #e55813;
+}
+
+@media (max-width: 767px) {
+  .contact-info-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   MAPA JAKO HERO (strona kontakt) — pełna szerokość, bez tekstu,
+   ten sam duch co wideo-hero na stronie głównej: pierwsza rzecz,
+   jaką widać, to od razu mapa dojazdu.
+   ============================================================ */
+.map-hero {
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  background-color: #f6f4ec;
+}
+
+.map-hero iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .map-hero {
+    height: 320px;
+  }
+}
+
+/* ============================================================
+   ZDJĘCIE NA PEŁNĄ SZEROKOŚĆ (np. "Skup złomu") — zamiast małego
+   wideo w dwukolumnowym układzie, zdjęcie zajmuje całą szerokość
+   ekranu jako baner nad treścią, w formacie panoramicznym. Na
+   mobile format łagodniejszy (4/3), żeby nie kadrować zbyt mocno.
+   ============================================================ */
+.photo-hero-full {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+  background-color: #0a1a45;
+}
+
+.photo-hero-full img {
+  display: block;
+  position: absolute;
+  /* Zdjęcie jest trochę większe niż sekcja (118% wysokości, wycentrowane
+     przez top:-9%) — to margines, w którym lekki paralaksowy przesuw
+     w JS (home-interactions.js) może poruszać obrazem w pionie, nie
+     odsłaniając pustych krawędzi. */
+  top: -9%;
+  left: 0;
+  width: 100%;
+  height: 118%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .photo-hero-full {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ============================================================
+   UKRYTE DLA WZROKU, DOSTĘPNE DLA CZYTNIKÓW EKRANU — np. H1 na
+   stronie FAQ, gdzie wizualnie nie potrzeba nagłówka nad akordeonem,
+   ale strona wciąż powinna mieć poprawną hierarchię nagłówków.
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   KAFLE INFORMACYJNE (rodzaje materiałów / korzyści / grupy
+   odbiorców na podstronach usługowych) — bez zdjęcia, bo nie każdy
+   rodzaj materiału ma dedykowaną fotografię w zasobach.
+   ============================================================ */
+.info-tiles-section {
+  background-color: #fffefa;
+  padding: 1rem 0 3rem;
+}
+
+.info-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.1rem;
+}
+
+/* Gdy .info-tiles stoi bezpośrednio po .content-prose (bez własnej
+   .info-tiles-section, jak na "Skup metali kolorowych") — dotąd bez
+   żadnego odstępu od akapitu nad nim. 2.5rem to ten sam odstęp, co
+   .content-section h2.h2 (nagłówek od poprzedniej treści) w całym
+   serwisie. */
+.content-prose + .info-tiles {
+  margin-top: 2.5rem;
+}
+
+.info-tile {
+  display: block;
+  background-color: #f6f4ec;
+  border-left: 3px solid #e55813;
+  border-radius: 8px;
+  padding: 1.4rem 1.25rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.info-tile:hover,
+.info-tile:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(18, 67, 118, .1);
+}
+
+.info-tile h3 {
+  color: #124376;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-family: Roboto, sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  margin: 0 0 .4rem;
+}
+
+.info-tile p {
+  color: #124376;
+  font-family: Roboto, sans-serif;
+  font-size: .88rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ============================================================
+   POWIĄZANE USŁUGI — linki do pozostałych podstron z oferty
+   ============================================================ */
+.related-services-section {
+  background-color: #f6f4ec;
+  padding: 3.5rem 0;
+  text-align: center;
+}
+
+.related-services-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .9rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   STAŁY PASEK MOBILNY: ZADZWOŃ / DOJAZD
+   ============================================================ */
+.mobile-sticky-cta {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-sticky-cta {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99998;
+    height: 56px;
+    box-shadow: 0 -4px 16px rgba(10, 26, 69, .18);
+  }
+
+  .mobile-sticky-cta-link {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto, sans-serif;
+    font-size: .95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .mobile-sticky-cta-link.is--call {
+    background-color: #e55813;
+    color: #fffefa;
+  }
+
+  .mobile-sticky-cta-link.is--map {
+    background-color: #124376;
+    color: #fffefa;
+  }
+
+  /* baner cookies zostaje widoczny NAD stałym paskiem, nie pod nim */
+  .consent-banner {
+    bottom: 56px;
+  }
+}
+
+/* ============================================================
+   DELIKATNE POJAWIANIE SIĘ SEKCJI PRZY SCROLLU
+   Domyślnie (bez JS, klasa .no-js na <html>) treść jest w pełni
+   widoczna — animacja włącza się TYLKO gdy JS zdąży zamienić
+   .no-js na .js (patrz mały inline-skrypt w <head> i
+   js/home-interactions.js, który dodaje .is--visible przez
+   IntersectionObserver).
+   ============================================================ */
+.js .reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.js .reveal-on-scroll.is--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

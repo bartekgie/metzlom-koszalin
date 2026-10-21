@@ -1,0 +1,317 @@
+/* =====================================================
+   METZŁOM – Custom Animations
+   v1.0 | 2025
+   ===================================================== */
+
+body {
+  opacity: 1;
+  transition: opacity 0.26s ease;
+}
+
+body.mtz-is-leaving {
+  opacity: 0;
+}
+
+/* ---- Page exit overlay ---- */
+#mtz-page-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fffefa;
+  z-index: 999999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#mtz-page-overlay.is-leaving {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* =====================================================
+   SCROLL-TRIGGERED ANIMATION STATES
+   ===================================================== */
+
+/* Base hidden state – added by JS */
+.mtz-animate {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.mtz-from-bottom { transform: translateY(48px); }
+.mtz-from-left   { transform: translateX(-56px); }
+.mtz-from-right  { transform: translateX(56px); }
+.mtz-scale-in    { transform: scale(0.92); }
+
+/* Visible state – added by IntersectionObserver */
+.mtz-animate.mtz-visible {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: opacity 2.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Stagger delays */
+.mtz-delay-1 { transition-delay: 0.18s; }
+.mtz-delay-2 { transition-delay: 0.38s; }
+.mtz-delay-3 { transition-delay: 0.58s; }
+.mtz-delay-4 { transition-delay: 0.78s; }
+.mtz-delay-5 { transition-delay: 0.98s; }
+.mtz-delay-6 { transition-delay: 1.18s; }
+
+/* =====================================================
+   HERO ENTRANCE (index.html – page load, not scroll)
+   ===================================================== */
+
+@keyframes mtz-hero-h1 {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes mtz-hero-sub {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes mtz-hero-img {
+  from { opacity: 0; transform: translateX(22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.section-2 .heading.move {
+  animation: mtz-hero-h1 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.section-2 .text-block {
+  animation: mtz-hero-sub 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+}
+
+.section-2 .button {
+  animation: mtz-hero-sub 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both;
+}
+
+.section-2 .heroimagediv {
+  animation: mtz-hero-img 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+/* =====================================================
+   VALUE CARDS HOVER (index.html – nasze wartości)
+   ===================================================== */
+
+.div-block-14 {
+  border-radius: 6px;
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
+}
+
+.div-block-14:hover {
+  transform: translateY(-7px);
+}
+
+/* Icon container pulse on card hover */
+.div-block-15 {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 8px;
+}
+
+.div-block-14:hover .div-block-15 {
+  background-color: rgba(229, 88, 19, 0.1);
+  transform: scale(1.1);
+}
+
+/* Icon rotate on hover */
+.image-5 {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: block;
+}
+
+.div-block-14:hover .image-5 {
+  transform: scale(1.18) rotate(-8deg);
+}
+
+/* =====================================================
+   CTA BUTTON PULSE GLOW
+   ===================================================== */
+
+@keyframes mtz-pulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(229, 88, 19, 0.12); }
+  50%       { box-shadow: 0 4px 20px rgba(229, 88, 19, 0.32); }
+}
+
+.button-cta {
+  animation: mtz-pulse 3.5s ease-in-out 3s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Also ensure regular button has overflow for ripple */
+.button {
+  position: relative;
+  overflow: hidden;
+}
+
+/* =====================================================
+   BUTTON RIPPLE EFFECT (added via JS)
+   ===================================================== */
+
+.mtz-ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: mtz-ripple-anim 0.65s linear;
+  background-color: rgba(255, 255, 255, 0.28);
+  pointer-events: none;
+}
+
+@keyframes mtz-ripple-anim {
+  to {
+    transform: scale(4.5);
+    opacity: 0;
+  }
+}
+
+/* =====================================================
+   FOOTER ICONS + LOGO HOVER
+   ===================================================== */
+
+/* Icons in contact sections (outside footer) */
+.info--section--text .image6,
+.info--section--transport .image6 {
+  transition: transform 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.info--section--text .div-block-22:hover .image6,
+.info--section--transport .div-block-22:hover .image6 {
+  transform: scale(1.22) rotate(-6deg);
+}
+
+/* Footer – no animations on any element */
+.footer--maindiv .image6,
+.image-footer {
+  transition: none;
+}
+
+.footer--maindiv .div-block-22:hover .image6,
+.footer_logoblock:hover .image-footer {
+  transform: none;
+  opacity: 1;
+}
+
+.footer--maindiv .link-block:hover,
+.footer--maindiv .link-block-2:hover,
+.footer--maindiv .link-block-3:hover,
+.footer--maindiv .link-block-4:hover,
+.footer--maindiv .link-block-5:hover,
+.footer--maindiv .link-block-6:hover {
+  transform: none;
+}
+
+/* =====================================================
+   GETVISIVE LOGO HOVER
+   ===================================================== */
+
+.copyrights--getvisive-logo {
+  transition: transform 0.3s ease;
+}
+
+.copyrights--getvisive:hover .copyrights--getvisive-logo {
+  transform: scale(1.1);
+}
+
+/* =====================================================
+   NAV LINK HOVER – subtle colour shift
+   ===================================================== */
+
+.nav-link {
+  transition: color 0.25s ease, opacity 0.2s, filter 0.25s ease;
+}
+
+.nav-link:hover {
+  color: #e55813;
+}
+
+/* =====================================================
+   SUBPAGE VIDEO SECTION OVERLAY FADE
+   ===================================================== */
+
+.info--section--video,
+.info--section--transport {
+  position: relative;
+  overflow: hidden;
+}
+
+.info--section--video::after,
+.info--section--transport::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(10, 26, 69, 0.45), transparent);
+  pointer-events: none;
+  animation: mtz-hero-sub 1.3s ease 0.2s both;
+}
+
+/* =====================================================
+   LINK HOVER ARROWS (contact links)
+   ===================================================== */
+
+.link-block,
+.link-block-2,
+.link-block-3,
+.link-block-4,
+.link-block-5,
+.link-block-6 {
+  transition: transform 0.22s ease;
+}
+
+.link-block:hover,
+.link-block-2:hover,
+.link-block-3:hover,
+.link-block-4:hover,
+.link-block-5:hover,
+.link-block-6:hover {
+  transform: translateX(4px);
+}
+
+/* =====================================================
+   RESPECT PREFERS-REDUCED-MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+
+  .section-2 .heading.move,
+  .section-2 .text-block,
+  .section-2 .button,
+  .section-2 .heroimagediv {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .mtz-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .button-cta {
+    animation: none !important;
+  }
+
+  .div-block-14:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .info--section--video::after,
+  .info--section--transport::after {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ===== Strona główna / Homepage ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://koszalin.metzlom.pl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koszalin.metzlom.pl/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koszalin.metzlom.pl/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://koszalin.metzlom.pl/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://koszalin.metzlom.pl/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koszalin.metzlom.pl/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://koszalin.metzlom.pl/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- ===== Skup złomu ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/skup-zlomu.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ===== Skup złomu stalowego ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/skup-zlomu-stalowego.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ===== Skup metali kolorowych ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/skup-metali-kolorowych.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== Skup akumulatorów ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/skup-akumulatorow.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== Rozbiórki ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/rozbiorki.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ===== Odbiór złomu ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/odbior-zlomu.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ===== FAQ ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ===== Kontakt ===== -->
+  <url>
+    <loc>https://koszalin.metzlom.pl/kontakt.html</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://koszalin.metzlom.pl/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koszalin.metzlom.pl/en/contact.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://koszalin.metzlom.pl/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://koszalin.metzlom.pl/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://koszalin.metzlom.pl/en/contact.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

@@ -1116,6 +1116,16 @@ html {
   color: #fffefa;
 }
 
+/* Bazowy .h2 nie ma ustawionego line-height (tylko font-size:3.5vh),
+   więc gdy nagłówek CTA zawija się do dwóch wierszy, linie prawie się
+   stykają/nachodzą. Dotyczy tylko desktopu — na mobile .h2 ma już
+   własny line-height z bazowego motywu. */
+@media (min-width: 768px) {
+  .ctawindow .h2.is--left {
+    line-height: 1.35;
+  }
+}
+
 .ctawindow .div-block-20 {
   display: flex;
   justify-content: center;

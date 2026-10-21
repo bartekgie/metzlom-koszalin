@@ -59,6 +59,55 @@ html {
 }
 
 /* ============================================================
+   GÓRNY PASEK KONTAKTOWY (tylko desktop/tablet) — telefon i godziny
+   otwarcia widoczne od razu, bez przewijania do stopki czy CTA. Na
+   mobile zbędny, bo tę samą rolę pełni już stały dolny pasek
+   Zadzwoń/Dojazd (.mobile-sticky-cta). Navbar nie jest fixed/sticky,
+   więc pasek po prostu staje nad nim w normalnym przepływie.
+   ============================================================ */
+.top-info-bar {
+  background-color: #124376;
+  padding: .55rem 0;
+}
+
+.top-info-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.top-info-bar-inner span {
+  color: #dfe6ee;
+  font-family: Roboto, sans-serif;
+  font-size: .82rem;
+  font-weight: 300;
+  letter-spacing: .02em;
+}
+
+.top-info-bar-inner a {
+  color: #fffefa;
+  font-family: Roboto, sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.top-info-bar-inner a:hover,
+.top-info-bar-inner a:focus-visible {
+  color: #e55813;
+}
+
+@media (max-width: 767px) {
+  .top-info-bar {
+    display: none;
+  }
+}
+
+/* ============================================================
    NAVBAR — przebudowa od zera (flexbox), zamiast łatania
    dziedziczonego z metzlom.pl układu float + jednostki vw,
    który powodował: przycięty dropdown, rozjechane wyrównanie
@@ -1851,6 +1900,103 @@ summary:focus-visible {
 }
 
 /* ============================================================
+   LIGHTBOX GALERII — pełnoekranowy podgląd po kliknięciu zdjęcia.
+   Bez JS element ma [hidden] i nigdy się nie otwiera — kliknięcie
+   miniatury po prostu nic nie robi (zdjęcia nadal widoczne w pasku
+   przewijania), więc brak JS nie blokuje dostępu do treści.
+   ============================================================ */
+.gallery-slide {
+  cursor: zoom-in;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(10, 26, 69, .92);
+  padding: 2rem;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-img {
+  max-width: min(1100px, 100%);
+  max-height: 85vh;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: rgba(255, 254, 250, .12);
+  color: #fffefa;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus-visible,
+.lightbox-prev:hover,
+.lightbox-prev:focus-visible,
+.lightbox-next:hover,
+.lightbox-next:focus-visible {
+  background-color: #e55813;
+}
+
+.lightbox-close {
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.lightbox-prev {
+  left: 1rem;
+}
+
+.lightbox-next {
+  right: 1rem;
+}
+
+@media (max-width: 600px) {
+  .lightbox {
+    padding: 1rem;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.4rem;
+  }
+}
+
+/* ============================================================
    OBSZAR DZIAŁANIA + KONTAKT
    ============================================================ */
 .area-contact-section {
@@ -2136,6 +2282,14 @@ summary:focus-visible {
   .consent-banner {
     bottom: 56px;
   }
+
+  /* Stały pasek Zadzwoń/Dojazd (56px, position:fixed) zasłaniał ostatni
+     kawałek stopki (copyright/link do polityki prywatności) — strona
+     fizycznie kończy się pod paskiem. Doklejamy tyle samo miejsca na
+     dole stopki, ile zajmuje sam pasek. */
+  .footer.section-5 {
+    padding-bottom: 56px;
+  }
 }
 
 /* ============================================================
@@ -2161,6 +2315,30 @@ summary:focus-visible {
   .js .reveal-on-scroll {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+}
+
+/* ============================================================
+   DELIKATNE POJAWIANIE SIĘ ZDJĘĆ PO ZAŁADOWANIU
+   Dotyczy tylko obrazów treściowych (loading="lazy") — zdjęcia hero
+   (loading="eager") mają być widoczne natychmiast, bez opóźnienia.
+   Tak jak reveal-on-scroll: bez JS (.no-js) obraz jest widoczny od
+   razu — opóźnienie i fade włącza JS (home-interactions.js) dopiero
+   po realnym załadowaniu danego obrazu.
+   ============================================================ */
+.js img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+.js img[loading="lazy"].is--loaded {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js img[loading="lazy"] {
+    opacity: 1;
     transition: none;
   }
 }

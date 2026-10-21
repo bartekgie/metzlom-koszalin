@@ -81,4 +81,85 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateParallax();
   }
+
+  // --- Delikatne pojawianie się zdjęć treściowych po załadowaniu ---
+  var lazyImgs = document.querySelectorAll('img[loading="lazy"]');
+  lazyImgs.forEach(function (img) {
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add("is--loaded");
+    } else {
+      img.addEventListener("load", function () {
+        img.classList.add("is--loaded");
+      });
+      img.addEventListener("error", function () {
+        img.classList.add("is--loaded");
+      });
+    }
+  });
+
+  // --- Lightbox galerii: pełnoekranowy podgląd po kliknięciu zdjęcia ---
+  var lightbox = document.getElementById("lightbox");
+  var gallerySlideImgs = document.querySelectorAll(".gallery-slide img");
+
+  if (lightbox && gallerySlideImgs.length) {
+    var lightboxImg = lightbox.querySelector(".lightbox-img");
+    var closeBtn = lightbox.querySelector(".lightbox-close");
+    var prevBtn2 = lightbox.querySelector(".lightbox-prev");
+    var nextBtn2 = lightbox.querySelector(".lightbox-next");
+    var images = Array.prototype.slice.call(gallerySlideImgs);
+    var currentIndex = 0;
+    var lastFocused = null;
+
+    var showImage = function (index) {
+      currentIndex = (index + images.length) % images.length;
+      var img = images[currentIndex];
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || "";
+    };
+
+    var openLightbox = function (index) {
+      lastFocused = document.activeElement;
+      showImage(index);
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+      closeBtn.focus();
+    };
+
+    var closeLightbox = function () {
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+      lightboxImg.src = "";
+      if (lastFocused) {
+        lastFocused.focus();
+      }
+    };
+
+    images.forEach(function (img, index) {
+      img.closest(".gallery-slide").addEventListener("click", function () {
+        openLightbox(index);
+      });
+    });
+
+    closeBtn.addEventListener("click", closeLightbox);
+    prevBtn2.addEventListener("click", function () {
+      showImage(currentIndex - 1);
+    });
+    nextBtn2.addEventListener("click", function () {
+      showImage(currentIndex + 1);
+    });
+
+    // klik na tło (poza zdjęciem i przyciskami) też zamyka
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (lightbox.hidden) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showImage(currentIndex - 1);
+      if (e.key === "ArrowRight") showImage(currentIndex + 1);
+    });
+  }
 });

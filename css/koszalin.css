@@ -239,6 +239,13 @@ html {
   font-size: 1.15rem;
   line-height: 1;
   font-weight: 500;
+  /* Teraz też otwiera/zamyka submenu (nie tylko strzałka obok) —
+     kursor sygnalizuje, że to klikalny element. */
+  cursor: pointer;
+}
+
+.nav-dropdown-label:hover {
+  color: #e55813;
 }
 
 .nav-dropdown-toggle {

@@ -101,6 +101,44 @@ html {
   color: #e55813;
 }
 
+/* CTA "Sprawdź na mapie" — wyróżniony pigułkowy przycisk, lekko
+   pulsujący, żeby przyciągnąć wzrok obok telefonu/godzin. Selektor
+   .top-info-bar-inner .top-info-bar-map (zamiast samego .top-info-bar-map)
+   celowo podbija specyficzność ponad ogólną .top-info-bar-inner a. */
+.top-info-bar-inner .top-info-bar-map {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e55813;
+  color: #fffefa;
+  padding: .3rem .9rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  animation: topInfoBarPulse 2.2s ease-in-out infinite;
+}
+
+.top-info-bar-inner .top-info-bar-map:hover,
+.top-info-bar-inner .top-info-bar-map:focus-visible {
+  background-color: #fffefa;
+  color: #e55813;
+}
+
+@keyframes topInfoBarPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(229, 88, 19, .55);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(229, 88, 19, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-info-bar-map {
+    animation: none;
+  }
+}
+
 @media (max-width: 767px) {
   .top-info-bar {
     display: none;

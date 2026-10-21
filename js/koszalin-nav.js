@@ -28,4 +28,26 @@ document.addEventListener("DOMContentLoaded", function () {
       toggle.setAttribute("aria-expanded", "false");
     });
   });
+
+  // --- Realna wysokość navbara jako zmienna CSS ---
+  // Rozwinięty panel mobilny (.nav-menu[data-nav-menu-open]) jest
+  // zakotwiczony do viewportu (position:fixed) i musi zaczynać się
+  // dokładnie pod navbarem. Sztywna wartość w CSS rozjeżdżała się przy
+  // zmianie wysokości navbara (np. górny pasek kontaktowy chowany na
+  // mobile) — stąd przerwa z widocznym hero pod spodem.
+  var navbar = document.querySelector(".navbar");
+  if (navbar) {
+    var updateNavbarHeight = function () {
+      document.documentElement.style.setProperty(
+        "--navbar-height",
+        navbar.getBoundingClientRect().height + "px"
+      );
+    };
+    updateNavbarHeight();
+    window.addEventListener("resize", updateNavbarHeight);
+    window.addEventListener("orientationchange", updateNavbarHeight);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(updateNavbarHeight);
+    }
+  }
 });

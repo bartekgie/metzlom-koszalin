@@ -376,7 +376,12 @@ html {
     position: fixed !important;
     left: 0 !important;
     right: 0 !important;
-    top: 160px !important;
+    /* Sztywne 160px rozjeżdżało się z rzeczywistą wysokością navbara
+       (np. gdy górny pasek kontaktowy chowa się na mobile) — przerwa
+       odsłaniała kawałek hero pod spodem. --navbar-height jest liczone
+       na bieżąco w js/koszalin-nav.js; 160px zostaje tylko jako
+       zabezpieczenie, zanim JS zdąży ustawić realną wartość. */
+    top: var(--navbar-height, 160px) !important;
     bottom: auto !important;
     z-index: 999999 !important;
     min-width: 0 !important;
